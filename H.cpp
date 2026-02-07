@@ -1,55 +1,43 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main() {
-    string s;
+int main(){
+    string s; 
     int caseNum = 1;
-    
-    while (getline(cin, s)) {
-        // Check for empty line (termination condition)
-        if (s.empty()) {
+
+    while(cin >> s){
+        if(s.empty()){
             break;
         }
-        
+
         int len = s.length();
-        
-        // Build prefix sum array
-        // prefixSum[i] = number of 1's from index 0 to i-1
+
         vector<int> prefixSum(len + 1, 0);
-        for (int i = 0; i < len; i++) {
+        for(int i = 0; i < len; i++){
             prefixSum[i + 1] = prefixSum[i] + (s[i] - '0');
         }
+
+        int n; cin >> n;
+
+        cout << "Case " << caseNum++ << ":" << "\n";
         
-        int n;
-        cin >> n;
-        
-        cout << "Case " << caseNum++ << ":" << endl;
-        
-        for (int q = 0; q < n; q++) {
-            int i, j;
-            cin >> i >> j;
-            
-            // Ensure i <= j
-            if (i > j) {
-                swap(i, j);
+        for(int i = 0; i < n; i++){
+            int q1, q2; cin >> q1 >> q2;
+
+            if(q1 > q2){
+                swap(q1, q2);
             }
+
+            int onesCount = prefixSum[q2 + 1] - prefixSum[q1];
             
-            // Calculate number of 1's in range [i, j]
-            int onesCount = prefixSum[j + 1] - prefixSum[i];
-            
-            // Calculate length of range
-            int rangeLength = j - i + 1;
-            
-            // Check if all are same
-            // All 1's: onesCount == rangeLength
-            // All 0's: onesCount == 0
-            if (onesCount == 0 || onesCount == rangeLength) {
-                cout << "Yes" << endl;
-            } else {
-                cout << "No" << endl;
+            int range = q2 - q1 + 1;
+
+            if(onesCount == 0 || onesCount == range){
+                cout << "Yes" << "\n";
+            }else{
+                cout << "No" << "\n";
             }
         }
     }
-    
     return 0;
 }
