@@ -4,17 +4,16 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-
-    long long x, xr = 0;
-
+    long long xor_sum = 0;
     for(int i = 0; i < n; i++) {
+        long long x;
         cin >> x;
-        xr ^= x;
+        xor_sum ^= (x % 4);
     }
-
-    if(xr == 0){
+    if(xor_sum == 0){
         cout << "second\n";
-    }else{
+    }
+    else{
         cout << "first\n";
     }
 }
@@ -25,10 +24,8 @@ int main() {
 
     int t;
     cin >> t;
-
-    while(t--) {
+    while(t--){
         solve();
     }
-
     return 0;
 }
